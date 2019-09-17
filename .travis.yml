@@ -1,0 +1,18 @@
+language: python
+sudo: required
+
+services:
+  - docker
+
+python:
+  - '3.6'
+
+install:
+  - pip install --upgrade pip setuptools
+  - pip install -r requirement-dev.txt
+  - pip --version
+
+cache: pip
+
+script:
+  - pytest
