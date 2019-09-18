@@ -16,3 +16,13 @@ cache: pip
 
 script:
   - pytest
+
+deploy:
+    provider: pypi
+    server: https://test.pypi.org/legacy/
+    distributions: sdist bdist_wheel
+    user: j5ew9
+    password:
+        secure: i9B5fcpqcojEqN2eA9i8d44KW+myVy0iQaZmAQRJoDnS6ltrT6dY0xiF+fVJ9Z/WOxD9Adf2sAtmeYn+UTeTHzKDKXE+m3Jz9jZrIUYSb4psRm+n9iZ0//k3Huyfs23jZ/hPIOWXqEuP04WZMWSM2BOL077vwpBl+E2/CTNgKfZoJJ9FxPEjj7Fydce5XozB0WCkAESNGn8iQiqWZMKg5p9WCRRJE6J8hsxJWHDc2+mspxZvNB7suZO+MvyuFopVKB+6OJXcvTOi8Z/cxSUDpa83QPuW0QNqSxRTWfymP11VT68gO2nyKoHWVkonzL7HHsvLmK2TQA1fPEtEZp7FKl9IMFLsnkxqdbqgdXtv9+md//ix6K/w4pUvSceFiwZnsJmVRn6IH839Fa6DanT281L1Mr5MCZh3+wU4NANdxKZUBt6w/aGIz+Fsi1BJhAbH/bTejdr2UAMyZUlXjU7Qtcv7NSquB7S2jk7cHlYICO7fHaOnv3wOR2ehypUIRmBbiOENfVBvZk7G1gduaQlDDxI57IVJM/KxtJ8BC+NFTY/85I0ftNEgrEpiRkCAuilusE/KH/nV79fj6cht+/tbUjm2BIwqQuByNsZPyDoB9kuR1uY3LCCzYS9rbYrS+8nXaf4nT+bB+b5kGteuX0XdNN4wVAwhjstIuwmaLAQOHtg=
+    on:
+        tags: true
