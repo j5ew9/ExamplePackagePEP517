@@ -19,6 +19,7 @@ script:
 
 before_deploy:
     - python -m pep517.build .
+    - echo > setup.py
 
 deploy:
     provider: pypi
