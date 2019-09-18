@@ -8,7 +8,7 @@ python:
   - '3.6'
 
 install:
-  - pip install --upgrade pip setuptools
+  - pip install --upgrade pip setuptools pep517
   - pip install -r requirement-dev.txt
   - pip --version
 
