@@ -16,7 +16,7 @@ cache: pip
 script:
   - pytest
 before_deploy:
-  - python -m pep517.build .
+  - python -m pep517.build --source --binary --out-dir dist .
   - echo > setup.py
 
 deploy:
