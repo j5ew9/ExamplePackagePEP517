@@ -5,23 +5,22 @@ sudo: required
 services:
  - docker
 
-python:
-  - 3.6
-  - 3.7
-
-install:
-  - pip install --upgrade pip setuptools
-  - pip install -r requirement-dev.txt
-  - pip --version
 
 cache: pip
 
-script:
-  - pytest
-
-
 jobs:
     include:
+        - name: "test"
+          python:
+            - 3.6
+            - 3.7
+          install:
+            - pip install --upgrade pip setuptools
+            - pip install -r requirement-dev.txt
+            - pip --version
+          script:
+            - pytest
+
         - name: "deploy"
           before_deploy:
             - pip install --upgrade pep517
