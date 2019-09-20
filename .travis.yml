@@ -10,9 +10,16 @@ cache: pip
 
 jobs:
     include:
-        - name: "test"
-          python:
+        - python:
             - 3.6
+          install:
+            - pip install --upgrade pip setuptools
+            - pip install -r requirement-dev.txt
+            - pip --version
+          script:
+            - pytest
+
+        - python:
             - 3.7
           install:
             - pip install --upgrade pip setuptools
