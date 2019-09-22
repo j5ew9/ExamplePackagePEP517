@@ -1,29 +1,33 @@
-dist: xenial
 language: python
 sudo: required
 
-python:
- - 3.6
- - 3.7
-
 services:
- - docker
+  - docker
+
+python:
+  - '3.6'
 
 install:
   - pip install --upgrade pip setuptools
-  - pip install -r requirement-dev.txt
-  - pip --version
+  - pip install -r requirements-dev.txt
 
 script:
-- pytest
+  - make flake
+  - make test
+
+before_script:
+  # Disable services enabled by default
+  # http://docs.travis-ci.com/user/database-setup/#MySQL
+  - sudo /etc/init.d/postgresql stop
+   # - sudo /etc/init.d/mysql stop
 
 cache: pip
 
 jobs:
   include:
-    - stage: deploy
-      name: deploy to pypi
-      if: tag IS present
+    - stage: Upload a new version of python package to PYPI
+      name: Publishing current Git tagged version of dist to PyPI
+      if: repo == "aio-libs/create-aio-app" AND tag IS present
       script: skip
 
       before_deploy:
@@ -33,13 +37,13 @@ jobs:
 
       deploy:
         provider: pypi
-        server: https://test.pypi.org/legacy/
+        user: aio-libs-bot
         distributions: sdist bdist_wheel
         skip-cleanup: true
-        skip_existing: true
-        user: j5ew9
         password:
-              secure: LqzRr1yqCNSx5NmTftezvwr1PqiwEpBOJSNL/RVJp7vBwbvp2gGgRDvgXtPv2U8haH/cbChQ4XoqYQHuzngAdUFIzvLQCvMZowRnAMG3y/rdUP22tDkZe33OkGYFeZ/OGuO180KgmqCjw7xvIpTEtaPposNs6Z5tNCdAQR+k1EnXzH9Fs5vEyKYHDeKc+vjuUvuWfsJBuCdwFO2Yoq/eJsaMLHAUE9cfzfBeRCUUSP8CM9DL/orWm6mK6hi9KHfpI3i87+sK7kp5o2Vqc0pGllOqzfAnI8iQ/3Q7nObdnePNSko7Yx9CgZ4t0cSz8sMHs0ksi5k0r6BvcfQp3oyVtJFXYg/0ta2DRSJwH8cnOdMBTK4x2R0m56/yUPPhQqdNSDMrlVQRX7gbXYMtiBZk8UlsGVvscBKaaoHbSjmCkBNERtUBXjl1pvcLKHV6PLbQf/oH0oIvM+A0zkAMR3FNvvIZ9rKQbDd8G8IF+iWWEJQ3/AAZHWc2kM9VakGanUBaHYmdkNgAJmvCqFbfcKFT1ibysLnU2Yy0FZwicd0uFgoP7Ie2A8nEZ1vItCOZw+ZNi0hmAWwHa1LUzVH1BFjQe/jaDi5WjPd9ti5vgf+pmxVE9fyqlL8/jVW4kYeoL0QMnL83svZc5wEq/EF0b3HfOl/dXsKY69KGTsnhkTKtw4k=
+          # Encrypted with `travis encrypt -r aio-libs/create-aio-app --api-endpoint 'https://api.travis-ci.com/'`:
+          secure: >-
+            ktCdEw9PQO9orA7BmhCn71yOIPK3seomRkJi8+ea54lQsT8cCe+sKZgaXRTBwkcKnKqz11gQl7P11qPNLIWr4cNeVrF6RsDix5YFDxpfqy+x6IPNvpArhkB8/2u2SpFbjzTOh0jT2d4ucSUDV+axjSRPymHK+8lYEMKXucNrzsao8qrExpCMkVJA5rNKeLC537ZN53tVbhwYNih+LsGPXGTvoQoMSQPRk83NfselIper1bPwioUYzIaJCygrOKQKqs/nKOlygMFmPyg4uFoDBh3idG66r8Q9Zmt7DrCAaCxJyGFmjNYHkMzLLh8kl2VuXk+lREbmPDIfNEGzoAM4mX6Jd+LGNvbOOqntRYpW+K4A01qe+YnI142uA7tfxWl1qOqknb0bT6EXKq3iCB4ZXxLdukCcaBAUJP0ctj5wyVpcJ7TAst4SDKLYuZ06I+kx2n51HO5DsfuUQBvkKuMzAHXv0jxXcv8ez2ZS5kBpgQuemNm1NOsrWhtyWzvhlcD2+VMNaYNII63GvAUiwgO8QCf/JNaW12Fdp/nceVUhJWlsmfvQQ1erKqugtecrowh9XWTO5kx7CMrpZJCDdWXMoUMC7aRmJuYaSiz1xCHa44v6xFlMv7bv2UzelRbnpgolCCTzCGXnC6ozct58b/dtGiHKbPJ+cJSOjH513kxRSaM=
         on:
           tags: true
           all_branches: true
