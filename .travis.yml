@@ -1,19 +1,25 @@
+dist: xenial
 language: python
 sudo: required
 
-python:
- - 3.6
-
 services:
- - docker
+  - docker
+
+python:
+  - '3.6'
 
 install:
   - pip install --upgrade pip setuptools
-  - pip install -r requirement-dev.txt
-  - pip --version
+  - pip install -r requirements-dev.txt
 
 script:
-- pytest
+  - pytest
+
+before_script:
+  # Disable services enabled by default
+  # http://docs.travis-ci.com/user/database-setup/#MySQL
+  - sudo /etc/init.d/postgresql stop
+   # - sudo /etc/init.d/mysql stop
 
 cache: pip
 
