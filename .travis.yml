@@ -22,10 +22,11 @@ before_script:
 
 cache: pip
 
-matrix:
+jobs:
   include:
     - stage: deploy
       name: deploy to pypi
+      env: PYPI_UPLOAD
       if: tag IS present
       script: skip
 
