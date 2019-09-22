@@ -21,10 +21,11 @@ cache: pip
 
 jobs:
   include:
-    - stage: "deploy"
-      name: "deploy to pypi"
+    - stage: deploy
+      name: deploy to pypi
       if: tag IS present
       script: skip
+
       before_deploy:
         - pip install --upgrade pep517
         - python -m pep517.build --source --binary --out-dir dist .
