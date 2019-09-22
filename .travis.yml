@@ -12,8 +12,7 @@ install:
   - pip install -r requirements-dev.txt
 
 script:
-  - make flake
-  - make test
+  - pytest
 
 before_script:
   # Disable services enabled by default
@@ -27,7 +26,7 @@ jobs:
   include:
     - stage: Upload a new version of python package to PYPI
       name: Publishing current Git tagged version of dist to PyPI
-      if: repo == "aio-libs/create-aio-app" AND tag IS present
+      if: tag IS present
       script: skip
 
       before_deploy:
@@ -37,7 +36,7 @@ jobs:
 
       deploy:
         provider: pypi
-        user: aio-libs-bot
+        user: aio-libs-bott
         distributions: sdist bdist_wheel
         skip-cleanup: true
         password:
