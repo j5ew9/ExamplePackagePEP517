@@ -23,7 +23,7 @@ jobs:
   include:
     - stage: deploy
       name: deploy to pypi
-      if: tag IS present
+      #if: tag IS present
       install: []
       script: skip
 
