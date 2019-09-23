@@ -35,7 +35,6 @@ jobs:
       deploy:
         provider: pypi
         server: https://test.pypi.org/legacy/
-        distributions: sdist bdist_wheel
         skip-cleanup: true
         skip_existing: true
         user: j5ew9
