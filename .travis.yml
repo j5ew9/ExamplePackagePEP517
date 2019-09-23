@@ -32,6 +32,7 @@ jobs:
       name: deploy to pypi
       env: PYPI_UPLOAD
       if: tag IS present
+      install: []
       script: skip
 
       before_deploy:
