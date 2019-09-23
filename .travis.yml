@@ -31,7 +31,7 @@ jobs:
     - stage: deploy
       name: deploy to pypi
       env: PYPI_UPLOAD
-      if: tag IS present
+      #if: tag IS present
       install: []
       script: skip
 
