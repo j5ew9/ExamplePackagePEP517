@@ -1,28 +1,21 @@
+dist: xenial
 language: python
 sudo: required
 
-services:
-  - docker
-
 python:
-  - '3.6'
+ - 3.6
+ - 3.7
 
-env:
-  - PYPI_UPLOAD
-  - TESTS
+services:
+ - docker
 
 install:
   - pip install --upgrade pip setuptools
   - pip install -r requirements-dev.txt
+  - pip --version
 
 script:
-  - pytest
-
-before_script:
-  # Disable services enabled by default
-  # http://docs.travis-ci.com/user/database-setup/#MySQL
-  - sudo /etc/init.d/postgresql stop
-   # - sudo /etc/init.d/mysql stop
+- pytest
 
 cache: pip
 
@@ -30,8 +23,7 @@ jobs:
   include:
     - stage: deploy
       name: deploy to pypi
-      env: PYPI_UPLOAD
-      #if: tag IS present
+      if: tag IS present
       install: []
       script: skip
 
