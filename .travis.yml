@@ -24,7 +24,7 @@ jobs:
     - &deploy_job
       stage: deploy
       name: Publishing if tag is present
-      env: PYPI_UPLOAD = true
+      env: PYPI_UPLOAD=true
       if: tag IS present
       install: []
       script: skip
